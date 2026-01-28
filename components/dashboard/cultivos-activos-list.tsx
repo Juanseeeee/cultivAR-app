@@ -36,25 +36,25 @@ export function CultivosActivosList({ cultivos }: CultivosActivosListProps) {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
+      <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="text-sm">Cultivos Activos</CardTitle>
-          <CardDescription className="text-xs">Tus cultivos recientes</CardDescription>
+          <CardTitle>Cultivos Activos</CardTitle>
+          <CardDescription>Tus cultivos en desarrollo más recientes</CardDescription>
         </div>
         <Link href="/cultivos">
-          <Button variant="outline" size="sm" className="text-xs h-8 px-3 rounded-lg">
+          <Button variant="outline" size="sm">
             Ver todos
           </Button>
         </Link>
       </CardHeader>
       <CardContent>
-        <div className="space-y-2">
+        <div className="space-y-3">
           {cultivosActivos.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-6 text-center">
-              <Sprout className="h-10 w-10 text-muted-foreground mb-2" />
+            <div className="flex flex-col items-center justify-center py-8 text-center">
+              <Sprout className="h-12 w-12 text-muted-foreground mb-3" />
               <p className="text-sm text-muted-foreground">No hay cultivos activos</p>
               <Link href="/cultivos/nuevo">
-                <Button variant="outline" size="sm" className="mt-2 bg-transparent">
+                <Button variant="outline" size="sm" className="mt-3 bg-transparent">
                   Crear primer cultivo
                 </Button>
               </Link>
@@ -63,22 +63,22 @@ export function CultivosActivosList({ cultivos }: CultivosActivosListProps) {
             cultivosActivos.map((cultivo) => (
               <div
                 key={cultivo.id}
-                className="flex items-start gap-2 p-2 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+                className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
               >
-                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Sprout className="h-4 w-4 text-primary" />
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Sprout className="h-5 w-5 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="font-medium text-xs leading-tight">{cultivo.nombre}</p>
-                      <p className="text-[11px] text-muted-foreground">{cultivo.variedad}</p>
+                      <p className="font-medium text-sm leading-tight">{cultivo.nombre}</p>
+                      <p className="text-xs text-muted-foreground">{cultivo.variedad}</p>
                     </div>
-                    <Badge variant="outline" className={`text-[11px] px-2 ${estadoColors[cultivo.estado_actual]}`}>
+                    <Badge variant="outline" className={estadoColors[cultivo.estado_actual]}>
                       {estadoLabels[cultivo.estado_actual]}
                     </Badge>
                   </div>
-                  <div className="flex items-center gap-2 mt-1.5 text-[11px] text-muted-foreground">
+                  <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
                     <span>{cultivo.cantidad_plantas} plantas</span>
                     {cultivo.ubicacion_descripcion && (
                       <span className="flex items-center gap-1">
@@ -87,7 +87,7 @@ export function CultivosActivosList({ cultivos }: CultivosActivosListProps) {
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     Iniciado hace {formatDistanceToNow(new Date(cultivo.fecha_inicio), { locale: es })}
                   </p>
                 </div>
