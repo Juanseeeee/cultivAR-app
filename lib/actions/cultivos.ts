@@ -388,6 +388,8 @@ export async function createObservacion(cultivoId: string, formData: FormData) {
   const data = {
     cultivo_id: cultivoId,
     cultivador_id: cultivadorId,
+    tipo: (formData.get("tipo") as string) || null,
+    fecha_observacion: (formData.get("fecha_observacion") as string) || new Date().toISOString(),
     descripcion: formData.get("descripcion") as string,
     altura_cm: formData.get("altura_cm") ? Number.parseFloat(formData.get("altura_cm") as string) : null,
     ph: formData.get("ph") ? Number.parseFloat(formData.get("ph") as string) : null,

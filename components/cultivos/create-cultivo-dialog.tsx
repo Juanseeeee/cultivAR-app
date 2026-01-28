@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Plus } from "lucide-react"
 import { createCultivo } from "@/lib/actions/cultivos"
 
-export function CreateCultivoDialog() {
+export function CreateCultivoDialog({ triggerContent }: { triggerContent?: React.ReactNode }) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -55,10 +55,14 @@ export function CreateCultivoDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Nuevo Cultivo
-        </Button>
+        {triggerContent ? (
+          <>{triggerContent}</>
+        ) : (
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            Nuevo Cultivo
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
