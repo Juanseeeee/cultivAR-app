@@ -28,11 +28,17 @@ export async function proxy(request: NextRequest) {
   )
 
   // Refresh session to ensure we have the latest auth state
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-  
-  const user = session?.user
+  let user = null
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+    user = session?.user
+  } catch (error) {
+    console.error("[v0] Middleware auth error:", error)
+    // If there's an error fetching the session, allow the request to continue
+    // The dashboard layout will handle re-authentication
+  }
 
   const isAuthPage = request.nextUrl.pathname.startsWith("/login") || 
                      request.nextUrl.pathname.startsWith("/register")

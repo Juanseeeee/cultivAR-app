@@ -1,12 +1,24 @@
 import type React from "react"
+import { redirect } from "next/navigation"
 import { Sidebar } from "@/components/layout/sidebar"
 import { MobileHeader } from "@/components/layout/mobile-header"
+import { getSupabaseServerClient } from "@/lib/supabase/server"
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const supabase = await getSupabaseServerClient()
+  
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  if (!session) {
+    redirect("/login")
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
