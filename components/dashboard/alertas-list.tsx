@@ -35,22 +35,22 @@ export function AlertasList({ alertas }: AlertasListProps) {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div>
-          <CardTitle>Alertas Recientes</CardTitle>
-          <CardDescription>Tareas y recordatorios pendientes más próximos</CardDescription>
+          <CardTitle className="text-sm">Alertas Recientes</CardTitle>
+          <CardDescription className="text-xs">Pendientes más próximos</CardDescription>
         </div>
         <Link href="/alertas">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="text-xs h-8 px-3 rounded-lg">
             Ver todas
           </Button>
         </Link>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-2">
           {alertasPendientes.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-8 text-center">
-              <CheckCircle2 className="h-12 w-12 text-muted-foreground mb-3" />
+            <div className="flex flex-col items-center justify-center py-6 text-center">
+              <CheckCircle2 className="h-10 w-10 text-muted-foreground mb-2" />
               <p className="text-sm text-muted-foreground">No hay alertas pendientes</p>
             </div>
           ) : (
@@ -59,20 +59,20 @@ export function AlertasList({ alertas }: AlertasListProps) {
               return (
                 <div
                   key={alerta.id}
-                  className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+                  className="flex items-start gap-2 p-2 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
                 >
-                  <div className="text-2xl mt-0.5">{tipoIcons[alerta.tipo]}</div>
+                  <div className="text-xl mt-0.5">{tipoIcons[alerta.tipo]}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="font-medium text-sm leading-tight">{alerta.titulo}</p>
-                      <Badge variant="outline" className={prioridadColors[alerta.prioridad]}>
+                      <p className="font-medium text-xs leading-tight">{alerta.titulo}</p>
+                      <Badge variant="outline" className={`text-[11px] px-2 ${prioridadColors[alerta.prioridad]}`}>
                         {alerta.prioridad}
                       </Badge>
                     </div>
                     {alerta.descripcion && (
-                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{alerta.descripcion}</p>
+                      <p className="text-[11px] text-muted-foreground mt-1 line-clamp-1">{alerta.descripcion}</p>
                     )}
-                    <div className="flex items-center gap-2 mt-2 text-xs">
+                    <div className="flex items-center gap-2 mt-1.5 text-[11px]">
                       {isPast ? (
                         <span className="flex items-center gap-1 text-destructive font-medium">
                           <AlertCircle className="h-3 w-3" />
