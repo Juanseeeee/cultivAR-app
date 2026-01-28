@@ -3,6 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { getUsuariosFinales } from "@/lib/actions/usuarios"
 import { UsuariosClient } from "./usuarios-client"
 
+export const dynamic = 'force-dynamic'
+
 function UsuariosSkeleton() {
   return (
     <div className="space-y-6">

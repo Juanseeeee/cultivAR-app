@@ -3,6 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { getCultivos } from "@/lib/actions/cultivos"
 import { CultivosClient } from "./cultivos-client"
 
+export const dynamic = 'force-dynamic'
+
 function CultivosListSkeleton() {
   return (
     <div className="space-y-6">

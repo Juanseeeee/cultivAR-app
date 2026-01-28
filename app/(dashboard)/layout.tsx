@@ -4,6 +4,8 @@ import { Sidebar } from "@/components/layout/sidebar"
 import { MobileHeader } from "@/components/layout/mobile-header"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardLayout({
   children,
 }: {

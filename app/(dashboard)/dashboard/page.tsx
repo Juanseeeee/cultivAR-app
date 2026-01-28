@@ -10,6 +10,8 @@ import { getEstadisticas, getCultivos, getCultivosPorEtapa } from "@/lib/actions
 import { getAlertasPendientes } from "@/lib/actions/alertas"
 import { getEntregasPorMes } from "@/lib/actions/entregas"
 
+export const dynamic = 'force-dynamic'
+
 function DashboardSkeleton() {
   return (
     <div className="space-y-6">

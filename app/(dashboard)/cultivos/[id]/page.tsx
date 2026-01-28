@@ -4,6 +4,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { getCultivoById, getObservacionesByCultivoId, getEtapasByCultivoId } from "@/lib/actions/cultivos"
 import { CultivoDetailClient } from "./cultivo-detail-client"
 
+export const dynamic = 'force-dynamic'
+
 function LoadingSkeleton() {
   return (
     <div className="space-y-6">

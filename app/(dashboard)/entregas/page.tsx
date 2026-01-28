@@ -5,6 +5,8 @@ import { getCultivos } from "@/lib/actions/cultivos"
 import { getUsuariosFinales } from "@/lib/actions/usuarios"
 import { EntregasClient } from "./entregas-client"
 
+export const dynamic = 'force-dynamic'
+
 function EntregasSkeleton() {
   return (
     <div className="space-y-6">

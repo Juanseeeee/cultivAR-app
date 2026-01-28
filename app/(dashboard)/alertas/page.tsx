@@ -4,6 +4,8 @@ import { getAlertas } from "@/lib/actions/alertas"
 import { getCultivos } from "@/lib/actions/cultivos"
 import { AlertasClient } from "./alertas-client"
 
+export const dynamic = 'force-dynamic'
+
 function AlertasSkeleton() {
   return (
     <div className="space-y-6">
