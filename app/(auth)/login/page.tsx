@@ -69,64 +69,60 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/20">
-      <div className="mx-auto max-w-md">
-        <div className="bg-primary text-primary-foreground rounded-b-3xl shadow-sm px-6 pt-12 pb-16">
-          <div className="mx-auto w-16 h-16 bg-primary-foreground/15 rounded-2xl flex items-center justify-center">
-            <Leaf className="w-8 h-8" />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-3 text-center">
+          <div className="mx-auto w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
+            <Leaf className="w-7 h-7 text-primary" />
           </div>
-          <h1 className="mt-4 text-2xl font-bold">Bienvenido</h1>
-          <p className="text-sm opacity-90">Inicia sesión en tu cuenta</p>
-        </div>
-        <div className="-mt-10 px-4">
-          <Card className="w-full border-0 shadow-lg rounded-2xl">
-            <CardContent>
-              <form onSubmit={handleLogin} className="space-y-4 pt-6">
-                {error && (
-                  <Alert variant="destructive">
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="tu@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    disabled={loading}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Contraseña</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    disabled={loading}
-                  />
-                </div>
-                <Button type="submit" className="w-full h-11 rounded-xl" disabled={loading}>
-                  {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
-                </Button>
-              </form>
-            </CardContent>
-            <CardFooter className="flex flex-col space-y-2 pb-6">
-              <p className="text-sm text-muted-foreground text-center">
-                ¿No tienes cuenta?{" "}
-                <Link href="/register" className="text-primary hover:underline font-medium">
-                  Regístrate aquí
-                </Link>
-              </p>
-            </CardFooter>
-          </Card>
-        </div>
-      </div>
+          <CardTitle className="text-2xl font-bold">FECANBO</CardTitle>
+          <CardDescription>Sistema de Gestión de Cultivos Medicinales</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleLogin} className="space-y-4">
+            {error && (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="tu@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Contraseña</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
+            </Button>
+          </form>
+        </CardContent>
+        <CardFooter className="flex flex-col space-y-2">
+          <p className="text-sm text-muted-foreground text-center">
+            ¿No tienes cuenta?{" "}
+            <Link href="/register" className="text-primary hover:underline font-medium">
+              Regístrate aquí
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
     </div>
   )
 }
