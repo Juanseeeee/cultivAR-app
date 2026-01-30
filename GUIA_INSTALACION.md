@@ -69,11 +69,11 @@
 1. En v0, click en **"Publish"** (esquina superior derecha)
 2. Seleccionar proyecto de Vercel o crear uno nuevo
 3. Agregar las variables de entorno:
-   ```
+   \`\`\`
    NEXT_PUBLIC_SUPABASE_URL=https://[tu-proyecto].supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=[tu-anon-key]
    SUPABASE_SERVICE_ROLE_KEY=[tu-service-role-key]
-   ```
+   \`\`\`
 4. Click en "Deploy"
 
 ### Opción B: Desde GitHub
@@ -127,7 +127,7 @@
 **Causa**: El trigger de creación de perfil falló
 **Solución**: Ejecutar este script en Supabase SQL Editor:
 
-```sql
+\`\`\`sql
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 DROP FUNCTION IF EXISTS create_cultivador_profile();
 
@@ -152,7 +152,7 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW
   EXECUTE FUNCTION public.create_cultivador_profile();
-```
+\`\`\`
 
 ### Error: "Failed to fetch" en consola
 **Causa**: Variables de entorno incorrectas o faltantes
