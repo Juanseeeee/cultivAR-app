@@ -57,63 +57,66 @@ export function Sidebar() {
 
       {/* Overlay for mobile */}
       {mobileMenuOpen && (
-        <div
-          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-in fade-in duration-200"
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside
-        className={cn(
-          "fixed top-0 left-0 z-40 h-screen w-72 sm:w-80 bg-card border-r transition-transform duration-300 ease-in-out lg:translate-x-0 lg:w-64",
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full",
-        )}
-      >
-        <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="flex items-center gap-3 px-6 py-6 border-b">
-            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-              <Leaf className="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <h1 className="font-bold text-lg leading-none">FECANBO</h1>
-              <p className="text-xs text-muted-foreground mt-1">Gestión de Cultivos</p>
-            </div>
+      <div className={cn(
+        "flex h-full w-64 flex-col gap-y-5 overflow-y-auto border-r border-border bg-background px-6 pb-4",
+        "lg:fixed lg:inset-y-0 lg:z-50 lg:flex",
+        "fixed inset-y-0 z-50 transition-transform duration-300 ease-in-out",
+        mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      )}>
+        {/* Logo */}
+        <div className="flex h-16 shrink-0 items-center gap-2 pt-4 lg:pt-0">
+          <Leaf className="h-8 w-8 text-primary" />
+          <div className="flex flex-col">
+            <span className="text-lg font-bold">FECANBO</span>
+            <span className="text-xs text-muted-foreground">Gestión de Cultivos</span>
           </div>
+        </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+        {/* Navigation */}
+        <nav className="flex flex-1 flex-col">
+          <ul className="flex flex-1 flex-col gap-y-1">
             {navigation.map((item) => {
               const isActive = pathname === item.href || pathname?.startsWith(item.href + "/")
               return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                  )}
-                >
-                  <item.icon className="h-5 w-5" />
-                  {item.name}
-                </Link>
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                    )}
+                  >
+                    <item.icon className="h-5 w-5" />
+                    {item.name}
+                  </Link>
+                </li>
               )
             })}
-          </nav>
+          </ul>
 
           {/* Logout */}
-          <div className="p-4 border-t">
-            <Button variant="ghost" className="w-full justify-start gap-3" onClick={handleLogout}>
+          <div className="mt-auto pb-6 lg:pb-0">
+            <Button
+              variant="ghost"
+              className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground px-4 py-3"
+              onClick={handleLogout}
+            >
               <LogOut className="h-5 w-5" />
               Cerrar Sesión
             </Button>
           </div>
-        </div>
-      </aside>
+        </nav>
+      </div>
     </>
   )
 }

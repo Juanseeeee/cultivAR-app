@@ -206,11 +206,11 @@ Brindar una herramienta integral para el registro, seguimiento y control de cult
 ## 5. Configuración de Supabase
 
 ### 5.1 Variables de Entorno Requeridas
-```
+\`\`\`
 NEXT_PUBLIC_SUPABASE_URL=https://[tu-proyecto].supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=[tu-anon-key]
 SUPABASE_SERVICE_ROLE_KEY=[tu-service-role-key]
-```
+\`\`\`
 
 ### 5.2 Scripts SQL
 Ejecutar en orden en el SQL Editor de Supabase:

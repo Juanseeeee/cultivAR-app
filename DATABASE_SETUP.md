@@ -16,9 +16,9 @@ Una vez resuelvas el tema del pago:
 Los scripts deben ejecutarse en el siguiente orden:
 
 #### Script 1: Crear Tablas
-```bash
+\`\`\`bash
 scripts/001-create-tables.sql
-```
+\`\`\`
 Crea todas las tablas necesarias:
 - cultivadores (perfiles de usuarios)
 - cultivos (información principal de cada cultivo)
@@ -30,18 +30,18 @@ Crea todas las tablas necesarias:
 - notificaciones (sistema de notificaciones)
 
 #### Script 2: Row Level Security
-```bash
+\`\`\`bash
 scripts/002-row-level-security.sql
-```
+\`\`\`
 Configura la seguridad a nivel de fila para que:
 - Cada cultivador solo vea sus propios datos
 - Los datos estén protegidos automáticamente
 - Las políticas de acceso sean estrictas
 
 #### Script 3: Functions & Triggers
-```bash
+\`\`\`bash
 scripts/003-functions-triggers.sql
-```
+\`\`\`
 Crea automatizaciones:
 - Creación automática de perfil al registrarse
 - Notificaciones de alertas vencidas
@@ -50,9 +50,9 @@ Crea automatizaciones:
 - Actualización de timestamps
 
 #### Script 4: Datos de Ejemplo (Opcional)
-```bash
+\`\`\`bash
 scripts/004-seed-data.sql
-```
+\`\`\`
 Solo para desarrollo/pruebas. Crea:
 - Plantillas de alertas comunes
 - Vistas para estadísticas
@@ -81,7 +81,7 @@ El sistema usará automáticamente estas variables (ya configuradas por v0):
 
 ### Estructura de la Base de Datos
 
-```
+\`\`\`
 cultivadores
 ├── cultivos (1:N)
 │   ├── cultivo_etapas (1:N)
@@ -91,7 +91,7 @@ cultivadores
 ├── usuarios_finales (1:N)
 │   └── entregas (1:N)
 └── notificaciones (1:N)
-```
+\`\`\`
 
 ### Próximos Pasos
 

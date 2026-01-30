@@ -63,7 +63,7 @@ Sistema profesional para la Federación Cannábica Bonaerense (FECANBO) que perm
 
 ## Estructura de la Base de Datos
 
-```
+\`\`\`
 cultivadores (perfiles de usuarios)
 ├── cultivos (información principal de cada cultivo)
 │   ├── cultivo_etapas (historial de etapas)
@@ -73,7 +73,7 @@ cultivadores (perfiles de usuarios)
 ├── usuarios_finales (pacientes/receptores)
 │   └── entregas (entregas por usuario)
 └── notificaciones (sistema de notificaciones)
-```
+\`\`\`
 
 ## Configuración
 
@@ -98,7 +98,7 @@ Ver `DATABASE_SETUP.md` para instrucciones detalladas.
 
 ### 3. Desarrollo Local
 
-```bash
+\`\`\`bash
 # Instalar dependencias
 npm install
 
@@ -107,7 +107,7 @@ npm run dev
 
 # Build para producción
 npm run build
-```
+\`\`\`
 
 ## Seguridad
 
