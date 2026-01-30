@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
@@ -20,24 +20,55 @@ import { Textarea } from "@/components/ui/textarea"
 import { Plus, Upload } from "lucide-react"
 import { createObservacion } from "@/lib/actions/cultivos"
 import { useToast } from "@/hooks/use-toast"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { getSupabaseBrowserClient } from "@/lib/supabase/client"
 
 interface AddObservacionDialogProps {
-  cultivoId: string
+  cultivoId?: string
+  defaultTipo?: "general" | "riego" | "nutricion" | "problema" | "mejora" | "foto"
+  triggerContent?: React.ReactNode
 }
 
-export function AddObservacionDialog({ cultivoId }: AddObservacionDialogProps) {
+export function AddObservacionDialog({ cultivoId, defaultTipo = "general", triggerContent }: AddObservacionDialogProps) {
   const router = useRouter()
   const { toast } = useToast()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [cultivosOptions, setCultivosOptions] = useState<Array<{ id: string; nombre: string }>>([])
+  const [selectedCultivoId, setSelectedCultivoId] = useState<string | null>(cultivoId || null)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setSelectedFiles(Array.from(e.target.files))
     }
   }
+
+  useEffect(() => {
+    setSelectedCultivoId(cultivoId || null)
+  }, [cultivoId])
+
+  useEffect(() => {
+    const fetchCultivos = async () => {
+      try {
+        const supabase = getSupabaseBrowserClient()
+        const { data, error } = await supabase
+          .from("cultivos")
+          .select("id, nombre")
+          .eq("activo", true)
+          .order("created_at", { ascending: false })
+        if (!error && data) {
+          setCultivosOptions(data as Array<{ id: string; nombre: string }>)
+        }
+      } catch (e) {
+        console.error("[v0] Error fetching cultivos for observacion dialog:", e)
+      }
+    }
+    if (open && !cultivoId) {
+      fetchCultivos()
+    }
+  }, [open, cultivoId])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -46,9 +77,13 @@ export function AddObservacionDialog({ cultivoId }: AddObservacionDialogProps) {
 
     try {
       const formData = new FormData(e.currentTarget)
+      formData.set("tipo", defaultTipo)
+      if (!selectedCultivoId) {
+        throw new Error("Debes seleccionar un cultivo")
+      }
       
       // Call server action
-      await createObservacion(cultivoId, formData)
+      await createObservacion(selectedCultivoId, formData)
 
       toast({
         title: "Observación agregada",
@@ -79,10 +114,14 @@ export function AddObservacionDialog({ cultivoId }: AddObservacionDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm">
-          <Plus className="mr-2 h-4 w-4" />
-          Agregar Observación
-        </Button>
+        {triggerContent ? (
+          <>{triggerContent}</>
+        ) : (
+          <Button size="sm">
+            <Plus className="mr-2 h-4 w-4" />
+            Agregar Observación
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="max-w-xl">
         <DialogHeader>
@@ -91,6 +130,26 @@ export function AddObservacionDialog({ cultivoId }: AddObservacionDialogProps) {
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
+            {!cultivoId && (
+              <div className="space-y-2">
+                <Label htmlFor="cultivo">Cultivo *</Label>
+                <Select
+                  value={selectedCultivoId || ""}
+                  onValueChange={(val) => setSelectedCultivoId(val)}
+                >
+                  <SelectTrigger id="cultivo">
+                    <SelectValue placeholder="Selecciona un cultivo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cultivosOptions.map((c) => (
+                      <SelectItem key={c.id} value={c.id}>
+                        {c.nombre}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
             <div className="space-y-2">
               <Label htmlFor="descripcion">Descripción *</Label>
               <Textarea
