@@ -1,8 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import { useSearchParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -45,17 +44,8 @@ const estadoLabels: Record<string, string> = {
 }
 
 export function CultivosClient({ cultivos }: { cultivos: Cultivo[] }) {
-  const searchParams = useSearchParams()
-  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
   const [estadoFilter, setEstadoFilter] = useState<string>("todos")
-
-  useEffect(() => {
-    const estadoParam = searchParams.get("estado")
-    if (estadoParam && estadoLabels[estadoParam]) {
-      setEstadoFilter(estadoParam)
-    }
-  }, [searchParams])
 
   const cultivosFiltrados = cultivos.filter((cultivo) => {
     const matchesSearch =
@@ -85,19 +75,7 @@ export function CultivosClient({ cultivos }: { cultivos: Cultivo[] }) {
             className="pl-9"
           />
         </div>
-        <Select
-          value={estadoFilter}
-          onValueChange={(val) => {
-            setEstadoFilter(val)
-            const qp = new URLSearchParams(searchParams)
-            if (val === "todos") {
-              qp.delete("estado")
-            } else {
-              qp.set("estado", val)
-            }
-            router.replace(`?${qp.toString()}`)
-          }}
-        >
+        <Select value={estadoFilter} onValueChange={setEstadoFilter}>
           <SelectTrigger className="w-full sm:w-[200px]">
             <SelectValue placeholder="Filtrar por estado" />
           </SelectTrigger>
