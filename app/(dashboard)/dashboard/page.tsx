@@ -75,20 +75,20 @@ async function DashboardContent() {
     }))
 
     return (
-      <div className="space-y-4 sm:space-y-6">
-        <div className="space-y-1 lg:block hidden">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-sm sm:text-base text-muted-foreground">Monitoreo general de cultivos medicinales comunitarios</p>
+      <div className="space-y-3 sm:space-y-5">
+        <div className="space-y-0.5 block">
+          <h1 className="text-xl sm:text-3xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-xs sm:text-base text-muted-foreground">Monitoreo general de cultivos medicinales comunitarios</p>
         </div>
 
         <StatsCards stats={estadisticas} />
 
-        <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
+        <div className="grid gap-3 sm:gap-5 lg:grid-cols-2">
           <CultivosEtapaChart data={cultivosPorEtapa} />
           <EntregasChart data={entregasPorMes} />
         </div>
 
-        <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
+        <div className="grid gap-3 sm:gap-5 lg:grid-cols-2">
           <AlertasList alertas={alertasForList} />
           <CultivosActivosList cultivos={cultivosForList} />
         </div>
